@@ -4,13 +4,22 @@ var repoNameEl = document.querySelector("#repo-name");
 
 
 var getRepoName = function() {
+
     //get query string parameters
     var queryString = document.location.search;
     //split query string parameter on = to get username/repo
     repoName = queryString.split("=")[1]
     console.log(repoName);
-    getRepoIssues(repoName);
-    repoNameEl.textContent = repoName;
+    //check if valid repoName in query parameter
+    if (repoName) {
+        //run getRepoIssues for the combination of user and repo
+        getRepoIssues(repoName);
+        //add name of user and repo at top of page
+        repoNameEl.textContent = repoName;
+    } else {
+        document.location.replace("./index.html");
+    }
+
 }
 
 
@@ -29,7 +38,8 @@ var getRepoIssues = function(repo) {
                 }
             });
         } else {
-            alert("There was a problem with your request!");
+            //if not successful, redirect to homepage
+            document.location.replace("./index.html");
         }
     });
     console.log(repo);
