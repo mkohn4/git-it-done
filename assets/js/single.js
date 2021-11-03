@@ -1,5 +1,18 @@
 var issueContainerEl = document.querySelector("#issues-container");
 var limitWarningEl = document.querySelector("#limit-warning");
+var repoNameEl = document.querySelector("#repo-name");
+
+
+var getRepoName = function() {
+    //get query string parameters
+    var queryString = document.location.search;
+    //split query string parameter on = to get username/repo
+    repoName = queryString.split("=")[1]
+    console.log(repoName);
+    getRepoIssues(repoName);
+    repoNameEl.textContent = repoName;
+}
+
 
 var getRepoIssues = function(repo) {
     //establish apiurl for issues with dynamic repo name
@@ -73,4 +86,4 @@ var displayWarning = function(repo) {
     limitWarningEl.appendChild(linkEl);
 };
 
-getRepoIssues("facebook/react");
+getRepoName();
